@@ -56,7 +56,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
     for (let i = 0; i < l.length; i++) {
         if (validateInput(l[i]) === "Empty") {
-            alertMessage = "Input required";
+            alertMessage = "All fields are required";
             shouldAlert = true;
         }
     }
@@ -74,20 +74,23 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
             let fuelMessage = "Fuel level too low for launch"
             fuelStatus.innerHTML = `${fuelMessage}`
             shouldAlert = true;
-        } else if (cargoLevel > 10000) {
+        }
+        if (cargoLevel > 10000) {
             launchStatus.innerHTML = "Shuttle not ready for launch";
             launchStatus.style.color = "red";
-            let cargoMessage = "There is too much mass for the shuttle to take off"
+            let cargoMessage = "Cargo mass too heavy for launch"
             cargoStatus.innerHTML = `${cargoMessage}`
             shouldAlert = true;
-        } else {
+        }
+        if (!shouldAlert) {
             launchStatus.innerHTML = "Shuttle is ready for launch";
             launchStatus.style.color = "green";
         }
+
     }
 
     if (shouldAlert) {
-        if (alertMessage){
+        if (alertMessage) {
             alert(alertMessage)
         } else {
             faultyItems.style.visibility = "visible";
@@ -95,7 +98,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
         return false
     } else {
         pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`
-        copilotStatus.innerHTML = `Pilot ${copilot} is ready for launch`
+        copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`
 
         faultyItems.style.visibility = "visible";
         return true
