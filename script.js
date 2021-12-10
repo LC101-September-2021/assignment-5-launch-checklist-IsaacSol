@@ -21,31 +21,6 @@ window.addEventListener("load", function() {
         if (!validInput) {
             event.preventDefault();
         }
-        // let t = formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass)
-        // console.log(t)
-        // if (t.fuelLevel < 10000) {
-        //     t.launchStatus.innerHTML = "Shuttle not ready for launch";
-        //     t.launchStatus.style.color = "red";
-        //     let fuelMessage = "Fuel level too low for launch"
-        //     t.fuelStatus.innerHTML = `${fuelMessage}`
-        // } else if (t.cargoLevel > 10000) {
-        //     t.launchStatus.innerHTML = "Shuttle not ready for launch";
-        //     t.launchStatus.style.color = "red";
-        //     let cargoMessage = "There is too much mass for the shuttle to take off"
-        //     t.cargoStatus.innerHTML = `${cargoMessage}`
-        // } else {
-        //     t.launchStatus.innerHTML = "Shuttle is ready for launch";
-        //     t.launchStatus.style.color = "green";
-        // }
-        // if (t.shouldAlert) {
-        //     alert(t.alertMessage)
-        //     faultyItems.style.visibility = "visible";
-        // } else {
-        //     t.pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`
-        //     t.copilotStatus.innerHTML = `Pilot ${copilot} is ready for launch`
-    
-        //     t.faultyItems.style.visibility = "visible";
-        // }
     })
 
    let listedPlanets;
