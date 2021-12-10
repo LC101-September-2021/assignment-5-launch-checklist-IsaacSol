@@ -88,7 +88,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
         } else {
             let cargoMessage = "Cargo mass low enough for launch"
             cargoStatus.innerHTML = `${cargoMessage}`
-        }      
+        }
         if (!shouldAlert) {
             launchStatus.innerHTML = "Shuttle is Ready for Launch";
             launchStatus.style.color = "rgb(65, 159, 106)";

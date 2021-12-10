@@ -3,13 +3,13 @@
 // const { myFetch } = require("./scriptHelper");
 // const { formSubmission } = require("./scriptHelper")
 
-window.addEventListener("load", function() {
-    console.log("SSSSTTTTTAAAAAARRRRRTTTT")
+window.addEventListener("load", function () {
 
     let form = document.getElementById("launchForm")
-    form.addEventListener("submit", function(){
+    form.addEventListener("submit", function () {
         let formField = document.getElementsByClassName("formField")
-        let list = [document.getElementById("pilotStatus"),document.getElementById("copilotStatus"),document.getElementById("fuelStatus"),document.getElementById("cargoStatus") ]
+        let list = [document.getElementById("pilotStatus"), document.getElementById("copilotStatus"), document.getElementById("fuelStatus"), document.getElementById("cargoStatus")]
+        list = "hidden"
         // console.log(list)
         // console.log(formField)
         // console.log(formField[0].childNodes[1].childNodes[1].value)
@@ -23,16 +23,16 @@ window.addEventListener("load", function() {
         }
     })
 
-   let listedPlanets;
-   // Set listedPlanetsResponse equal to the value returned by calling myFetch()
-   let listedPlanetsResponse = myFetch();
-   listedPlanetsResponse.then(function (result) {
-       listedPlanets = result;
-       console.log(listedPlanets);
-   }).then(function () {
-       console.log(listedPlanets);
-       // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
+    let listedPlanets;
+    // Set listedPlanetsResponse equal to the value returned by calling myFetch()
+    let listedPlanetsResponse = myFetch();
+    listedPlanetsResponse.then(function (result) {
+        listedPlanets = result;
+        //    console.log(listedPlanets);
+    }).then(function () {
+        //    console.log(listedPlanets);
+        // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
         let myPlanet = pickPlanet(listedPlanets)
         addDestinationInfo(document, myPlanet.name, myPlanet.diameter, myPlanet.star, myPlanet.distance, myPlanet.moons, myPlanet.image)
-   })
+    })
 });
