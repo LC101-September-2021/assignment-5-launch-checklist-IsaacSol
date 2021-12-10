@@ -14,39 +14,111 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                  </ol>
                  <img src="">
     */
+    let missionTarget = document.getElementById("missionTarget")
+    missionTarget.innerHTML = `
+    <h2>Mission Destination</h2>
+    <ol>
+       <li>Name: ${name}</li>
+       <li>Diameter: ${diameter}</li>
+       <li>Star: ${star}</li>
+       <li>Distance from Earth: ${distance}</li>
+       <li>Number of Moons: ${moons}</li>
+    </ol>
+    <img src="${imageUrl}">
+   `
 }
 
 function validateInput(testInput) {
-    if (testInput = undefined){
-        console.log("E")
+    if (testInput === undefined || testInput === null || testInput === "") {
+        // console.log("E")
         return "Empty"
     }
     if (Number(testInput)) {
-        console.log("IaN")
+        // console.log("IaN")
         return "Is a Number"
     }
-    if (isNaN(testInput)){
-        console.log("NaN")
+    if (isNaN(testInput)) {
+        // console.log("NaN")
         return "Not a Number"
     }
-    console.log("Fail")
-    return "Fail"
 }
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
+    l = [pilot, copilot, fuelLevel, cargoLevel]
+    alertMessage = ""
+    shouldAlert = false
+    let pilotStatus = document.getElementById("pilotStatus")
+    let copilotStatus = document.getElementById("copilotStatus")
+    let fuelStatus = document.getElementById("fuelStatus")
+    let cargoStatus = document.getElementById("cargoStatus")
+    let faultyItems = document.getElementById("faultyItems")
+    let launchStatus = document.getElementById("launchStatus")
+
+    for (let i = 0; i < l.length; i++) {
+        if (validateInput(l[i]) === "Empty") {
+            alertMessage = "Input required";
+            shouldAlert = true;
+        }
+    }
+    if (validateInput(pilot) === "Is a Number" || validateInput(copilot) === "Is a Number") {
+        alertMessage = "Make sure to enter valid information for each field!";
+        shouldAlert = true;
+    }
+    if (validateInput(fuelLevel) === "Not a Number" || validateInput(cargoLevel) === "Not a Number") {
+        alertMessage = "Make sure to enter valid information for each field!";
+        shouldAlert = true;
+    } else {
+        if (fuelLevel < 10000) {
+            launchStatus.innerHTML = "Shuttle not ready for launch";
+            launchStatus.style.color = "red";
+            let fuelMessage = "Fuel level too low for launch"
+            fuelStatus.innerHTML = `${fuelMessage}`
+            shouldAlert = true;
+        } else if (cargoLevel > 10000) {
+            launchStatus.innerHTML = "Shuttle not ready for launch";
+            launchStatus.style.color = "red";
+            let cargoMessage = "There is too much mass for the shuttle to take off"
+            cargoStatus.innerHTML = `${cargoMessage}`
+            shouldAlert = true;
+        } else {
+            launchStatus.innerHTML = "Shuttle is ready for launch";
+            launchStatus.style.color = "green";
+        }
+    }
+
+    if (shouldAlert) {
+        if (alertMessage){
+            alert(alertMessage)
+        } else {
+            faultyItems.style.visibility = "visible";
+        }
+        return false
+    } else {
+        pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`
+        copilotStatus.innerHTML = `Pilot ${copilot} is ready for launch`
+
+        faultyItems.style.visibility = "visible";
+        return true
+    }
+    return [shouldAlert, alertMessage, pilotStatus, copilotStatus, fuelStatus, cargoStatus, faultyItems, launchStatus]
+
+
 
 }
 
 async function myFetch() {
+
     let planetsReturned;
-
-    planetsReturned = await fetch().then(function (response) {
-    });
-
+    planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json")
+    // console.log(planetsReturned)
+    planetsReturned = await planetsReturned.json()
+    // console.log(planetsReturned[1])
     return planetsReturned;
 }
 
 function pickPlanet(planets) {
+    let index = (Math.round(Math.random() * 5 - 1) + 1)
+    return planets[index]
 }
 
 module.exports.addDestinationInfo = addDestinationInfo;

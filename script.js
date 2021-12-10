@@ -1,15 +1,52 @@
 // Write your JavaScript code here!
 
-const { myFetch } = require("./scriptHelper");
-const { validateInput } = require("./scriptHelper")
+// const { myFetch } = require("./scriptHelper");
+// const { formSubmission } = require("./scriptHelper")
 
 window.addEventListener("load", function() {
-    // let formSubmit = document.getElementById("formSubmit")
-    // let divNum = document.getElementsByClassName("formField")
-    // formSubmit.addEventListener("click", function(){
-    //     let form = document.forms["testForm"]["copilotName"].value
-    //     alert(form)
-    // })
+    console.log("SSSSTTTTTAAAAAARRRRRTTTT")
+
+    let form = document.getElementById("launchForm")
+    form.addEventListener("submit", function(){
+        let formField = document.getElementsByClassName("formField")
+        let list = [document.getElementById("pilotStatus"),document.getElementById("copilotStatus"),document.getElementById("fuelStatus"),document.getElementById("cargoStatus") ]
+        // console.log(list)
+        // console.log(formField)
+        // console.log(formField[0].childNodes[1].childNodes[1].value)
+        let pilot = formField[0].childNodes[1].childNodes[1].value
+        let copilot = formField[1].childNodes[1].childNodes[1].value
+        let fuelLevel = formField[2].childNodes[1].childNodes[1].value
+        let cargoMass = formField[3].childNodes[1].childNodes[1].value
+        let validInput = formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass)
+        if (!validInput) {
+            event.preventDefault();
+        }
+        // let t = formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass)
+        // console.log(t)
+        // if (t.fuelLevel < 10000) {
+        //     t.launchStatus.innerHTML = "Shuttle not ready for launch";
+        //     t.launchStatus.style.color = "red";
+        //     let fuelMessage = "Fuel level too low for launch"
+        //     t.fuelStatus.innerHTML = `${fuelMessage}`
+        // } else if (t.cargoLevel > 10000) {
+        //     t.launchStatus.innerHTML = "Shuttle not ready for launch";
+        //     t.launchStatus.style.color = "red";
+        //     let cargoMessage = "There is too much mass for the shuttle to take off"
+        //     t.cargoStatus.innerHTML = `${cargoMessage}`
+        // } else {
+        //     t.launchStatus.innerHTML = "Shuttle is ready for launch";
+        //     t.launchStatus.style.color = "green";
+        // }
+        // if (t.shouldAlert) {
+        //     alert(t.alertMessage)
+        //     faultyItems.style.visibility = "visible";
+        // } else {
+        //     t.pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`
+        //     t.copilotStatus.innerHTML = `Pilot ${copilot} is ready for launch`
+    
+        //     t.faultyItems.style.visibility = "visible";
+        // }
+    })
 
    let listedPlanets;
    // Set listedPlanetsResponse equal to the value returned by calling myFetch()
@@ -20,8 +57,7 @@ window.addEventListener("load", function() {
    }).then(function () {
        console.log(listedPlanets);
        // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
+        let myPlanet = pickPlanet(listedPlanets)
+        addDestinationInfo(document, myPlanet.name, myPlanet.diameter, myPlanet.star, myPlanet.distance, myPlanet.moons, myPlanet.image)
    })
-   
-   
-
 });
