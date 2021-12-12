@@ -6,10 +6,10 @@
 window.addEventListener("load", function () {
 
     let form = document.getElementById("launchForm")
-    form.addEventListener("submit", function () {
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
         let formField = document.getElementsByClassName("formField")
         let list = [document.getElementById("pilotStatus"), document.getElementById("copilotStatus"), document.getElementById("fuelStatus"), document.getElementById("cargoStatus")]
-        list = "hidden"
         // console.log(list)
         // console.log(formField)
         // console.log(formField[0].childNodes[1].childNodes[1].value)
@@ -18,9 +18,6 @@ window.addEventListener("load", function () {
         let fuelLevel = formField[2].childNodes[1].childNodes[1].value
         let cargoMass = formField[3].childNodes[1].childNodes[1].value
         let validInput = formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass)
-        if (!validInput) {
-            event.preventDefault();
-        }
     })
 
     let listedPlanets;
